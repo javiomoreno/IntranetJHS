@@ -8,6 +8,8 @@ use app\models\search\UsuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -20,6 +22,17 @@ class UsuarioController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'view', 'update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'view', 'update'],
+                        'allow' => true,
+                        'roles' => ['Administrador'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -65,7 +78,9 @@ class UsuarioController extends Controller
         $this->layout ="main-administrador";
         $model = new Usuario();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->UsuarioFechaReg = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->UsuarioID]);
         } else {
             return $this->render('create', [
@@ -85,7 +100,12 @@ class UsuarioController extends Controller
         $this->layout ="main-administrador";
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $claveOld = $model->UsuarioClave;
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->UsuarioClave != $claveOld) {
+                $model->setPassword($model->UsuarioClave);
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->UsuarioID]);
         } else {
             return $this->render('update', [

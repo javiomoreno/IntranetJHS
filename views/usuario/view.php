@@ -4,45 +4,49 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
-
-$this->title = $model->UsuarioID;
+/* @var $model app\models\Usuarios */
+$this->title = "Detalle de Usuario";
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuario-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->UsuarioID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->UsuarioID], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+<div class="usuarios-view">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+        </div>
+        <div class="box-body">
+          <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+              'UsuarioID',
+              'UsuarioNombre',
+              'UsuarioApellido',
+              'UsuarrioCedula',
+              'UsuarioCorreo',
+              [                      // the owner name of the model
+                'label' => 'Clave de Acceso',
+                'value' => '*********',
+              ],
+              'UsuarioFechaNac',
+              'UsuarioFechaIng',
+              'UsuarioBanco',
+              'UsuarioCuentaBanco',
+              'UsuarioFechaReg',
+              'rol.RolNombre',
+              'empresa.EmpresaNombre',
+              'cargo.CargoNombre',
             ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'UsuarioID',
-            'UsuarioNombre',
-            'UsuarioApellido',
-            'UsuarrioCedula',
-            'UsuarioCorreo',
-            'UsuarioClave',
-            'UsuarioFechaNac',
-            'UsuarioFechaIng',
-            'UsuarioBanco',
-            'UsuarioCuentaBanco',
-            'UsuarioFechaReg',
-            'RolID',
-            'EmpresaID',
-            'CargoID',
-        ],
-    ]) ?>
-
+            ]) ?>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12" style="text-align: center;">
+            <p>
+              <?= Html::a('Modificar', ['update', 'id' => $model->UsuarioID], ['class' => 'btn btn-primary']) ?>
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>

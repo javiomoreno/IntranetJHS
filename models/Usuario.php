@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "usuario".
@@ -117,6 +118,21 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public static function findIdentity($id)
     {
         return static::findOne(['UsuarioID' => $id]);
+    }
+
+    public static function getListaRoles(){
+        $opciones = Rol::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'RolID', 'RolNombre');
+    }
+
+    public static function getListaEmpresas(){
+        $opciones = Empresa::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'EmpresaID', 'EmpresaNombre');
+    }
+
+    public static function getListaCargos(){
+        $opciones = Cargo::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'CargoID', 'CargoNombre');
     }
 
     /**
