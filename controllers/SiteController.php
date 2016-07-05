@@ -49,11 +49,29 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->layout ="main-login";
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if(\Yii::$app->user->can('Administrador')){
+                return Yii::$app->getResponse()->redirect(array('/administrador/index'));
+            }
+            else if(\Yii::$app->user->can('Usuario')){
+                return Yii::$app->getResponse()->redirect(array('/usuario/index'));
+            }
+            return $this->goHome();
+        }
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogin()
     {
+        $this->layout ="main-login";
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
