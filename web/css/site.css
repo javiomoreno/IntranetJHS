@@ -89,3 +89,11 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+.btn-success{
+    background-color: #fff !important;
+    border: 1px #fff !important;
+}
+.btn-success:hover{
+    background-color: #fff !important;
+}
+
