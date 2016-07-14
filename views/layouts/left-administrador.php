@@ -23,7 +23,9 @@
                     ['label' => 'Inicio', 'icon' => 'fa fa-home', 'url' => ['/administrador/index']],
                     ['label' => 'Usuarios', 'icon' => 'fa fa-users', 'url' => ['/usuario/index']],
                     ['label' => 'Roles', 'icon' => 'fa fa-user-secret', 'url' => ['/rol/index']],
-                    ['label' => 'Empresas', 'icon' => 'fa fa-sitemap', 'url' => ['/empresa/index']],
+                    ['label' => 'Empresas', 'icon' => 'fa fa-industry', 'url' => ['/empresa/index']],
+                    ['label' => 'Departamentos', 'icon' => 'fa fa-sitemap', 'url' => ['/departamento/index']],
+                    ['label' => 'Parametros', 'icon' => 'fa fa-clone', 'url' => ['/parametroempresa/index']],
                     ['label' => 'Cargos', 'icon' => 'fa fa-black-tie', 'url' => ['/cargo/index']],
                 ],
             ]
