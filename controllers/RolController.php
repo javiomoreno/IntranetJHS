@@ -80,12 +80,16 @@ class RolController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->RolFechaReg = date('Y-m-d H:i:s');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->RolID]);
-        } else {
+            if($model->save()){
+              return $this->redirect(['view', 'id' => $model->RolID]);
+            }
             return $this->render('create', [
                 'model' => $model,
             ]);
+        } else {
+          return $this->render('create', [
+              'model' => $model,
+          ]);
         }
     }
 

@@ -33,7 +33,7 @@ class Departamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['EmpresaID'], 'required'],
+            [['DepartamentoNombre'], 'required'],
             [['DepartamentoID', 'EmpresaID'], 'integer'],
             [['DepartamentoFechaReg'], 'safe'],
             [['DepartamentoNombre'], 'string', 'max' => 50],

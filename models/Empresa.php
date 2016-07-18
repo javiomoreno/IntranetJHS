@@ -31,7 +31,7 @@ class Empresa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['EmpresaID', 'EmpresaNombre', 'EmpresaFechaReg', 'EmpresaRIF'], 'required'],
+            [['EmpresaNombre', 'EmpresaFechaReg', 'EmpresaRIF'], 'required'],
             [['EmpresaID'], 'integer'],
             [['EmpresaFechaReg'], 'safe'],
             [['EmpresaNombre'], 'string', 'max' => 50],

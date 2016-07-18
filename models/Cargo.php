@@ -30,7 +30,7 @@ class Cargo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CargoID', 'CargoNombre', 'CargoFechaReg'], 'required'],
+            [['CargoNombre', 'CargoFechaReg'], 'required'],
             [['CargoID'], 'integer'],
             [['CargoFechaReg'], 'safe'],
             [['CargoNombre', 'CargoDescripcion'], 'string', 'max' => 45],

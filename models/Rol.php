@@ -30,7 +30,7 @@ class Rol extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['RolID', 'RolNombre', 'RolFechaReg'], 'required'],
+            [['RolNombre', 'RolFechaReg'], 'required'],
             [['RolID'], 'integer'],
             [['RolFechaReg'], 'safe'],
             [['RolNombre'], 'string', 'max' => 40],

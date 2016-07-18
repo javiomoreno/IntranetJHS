@@ -80,8 +80,12 @@ class CargoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->CargoFechaReg = date('Y-m-d H:i:s');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->CargoID]);
+            if($model->save()){
+              return $this->redirect(['view', 'id' => $model->CargoID]);
+            }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         } else {
             return $this->render('create', [
                 'model' => $model,

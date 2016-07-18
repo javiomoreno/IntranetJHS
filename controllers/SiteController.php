@@ -8,6 +8,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Curriculum;
+use app\models\UploadFile;
+use yii\web\UploadedFile;
+
 
 class SiteController extends Controller
 {
@@ -49,7 +53,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $this->layout ="main-login";
+        $this->layout ="main";
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -82,6 +86,29 @@ class SiteController extends Controller
         }
         return $this->render('login', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionRegistrar()
+    {
+        $this->layout ="main";
+        $model = new Curriculum();
+        $modelArchivo = new UploadFile();
+        if ($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($modelArchivo, 'archivoFile');
+            $modelArchivo->archivoFile = file_get_contents($file->tempName);
+            if ($modelArchivo->upload()) {
+              $model->save();
+            }
+            else{
+              return $this->render('registrar', [
+                  'model' => $model, 'modelArchivo' => $modelArchivo,
+              ]);
+            }
+            return $this->goBack();
+        }
+        return $this->render('registrar', [
+            'model' => $model, 'modelArchivo' => $modelArchivo,
         ]);
     }
 

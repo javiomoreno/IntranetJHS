@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2016 a las 18:02:02
+-- Tiempo de generación: 18-07-2016 a las 22:08:51
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -119,7 +119,34 @@ CREATE TABLE `cargo` (
 --
 
 INSERT INTO `cargo` (`CargoID`, `CargoNombre`, `CargoDescripcion`, `CargoFechaReg`) VALUES
-(1, 'cargo 1', 'cargo 1', '2016-07-04');
+(1, 'Cargo 1', 'Cargo 1', '2016-07-04'),
+(2, 'cargo 1', 'cargo 1', '2016-07-18'),
+(3, 'cargo 1', 'cargo 1', '2016-07-18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curriculum`
+--
+
+CREATE TABLE `curriculum` (
+  `CurriculumID` int(11) NOT NULL,
+  `CurriculumNombre` varchar(45) DEFAULT NULL,
+  `CurriculumApellido` varchar(45) DEFAULT NULL,
+  `CurriculumCedula` varchar(45) DEFAULT NULL,
+  `CurriculumFechNaci` datetime DEFAULT NULL,
+  `CurriculumLugNaci` varchar(45) DEFAULT NULL,
+  `CurriculumDireccion` varchar(200) DEFAULT NULL,
+  `CurriculumTeleFijo` varchar(45) DEFAULT NULL,
+  `CurriculumTeleCelu` varchar(45) DEFAULT NULL,
+  `CurriculumEmail` varchar(100) DEFAULT NULL,
+  `CurriculumExpeLabo` varchar(200) DEFAULT NULL,
+  `CurriculumEstuReal` varchar(100) DEFAULT NULL,
+  `CurriculumCursReal` varchar(100) DEFAULT NULL,
+  `CurriculumDisponibilidad` varchar(45) DEFAULT NULL,
+  `CurriculumArchivo` blob,
+  `Sexo_SexoID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -134,13 +161,6 @@ CREATE TABLE `departamento` (
   `DepartamentoFechaReg` date DEFAULT NULL,
   `EmpresaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `departamento`
---
-
-INSERT INTO `departamento` (`DepartamentoID`, `DepartamentoNombre`, `DepartamentoDescripcion`, `DepartamentoFechaReg`, `EmpresaID`) VALUES
-(2, 'recursos humanos', 'RRHH', '2016-07-14', 1);
 
 -- --------------------------------------------------------
 
@@ -161,7 +181,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`EmpresaID`, `EmpresaNombre`, `EmpresaDescripcion`, `EmpresaFechaReg`, `EmpresaRIF`) VALUES
-(1, 'Empresa 1', 'Empresa 1', '2016-07-04', 'j-123456-4');
+(1, 'Empresa 1', 'Empresa 1', '2016-07-04', 'J-123456-4');
 
 -- --------------------------------------------------------
 
@@ -215,14 +235,6 @@ CREATE TABLE `parametroempresa` (
   `Departamento_DepartamentoID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `parametroempresa`
---
-
-INSERT INTO `parametroempresa` (`ParametroID`, `ParametroNombre`, `ParametroValor`, `ParametroFechaReg`, `EmpresaID`, `Departamento_DepartamentoID`) VALUES
-(2, 'vision', 'visionar', '2016-07-14', 1, NULL),
-(3, 'mision', 'misionar', '2016-07-14', NULL, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -256,7 +268,27 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`RolID`, `RolNombre`, `RolDescripcion`, `RolFechaReg`) VALUES
-(1, 'Administrador', 'Usuario Administrador', '2016-07-04');
+(1, 'Administrador', 'Administrador del Sistema', '2016-07-04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sexo`
+--
+
+CREATE TABLE `sexo` (
+  `SexoID` int(11) NOT NULL,
+  `SexoNombre` varchar(45) DEFAULT NULL,
+  `SexoDescripcion` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sexo`
+--
+
+INSERT INTO `sexo` (`SexoID`, `SexoNombre`, `SexoDescripcion`) VALUES
+(1, 'Femenino', 'Sexo de Mujeres'),
+(2, 'Masculino', 'Sexo de Hombres');
 
 -- --------------------------------------------------------
 
@@ -333,6 +365,13 @@ ALTER TABLE `cargo`
   ADD PRIMARY KEY (`CargoID`);
 
 --
+-- Indices de la tabla `curriculum`
+--
+ALTER TABLE `curriculum`
+  ADD PRIMARY KEY (`CurriculumID`),
+  ADD KEY `fk_Curriculum_Sexo1_idx` (`Sexo_SexoID`);
+
+--
 -- Indices de la tabla `departamento`
 --
 ALTER TABLE `departamento`
@@ -380,6 +419,12 @@ ALTER TABLE `rol`
   ADD PRIMARY KEY (`RolID`);
 
 --
+-- Indices de la tabla `sexo`
+--
+ALTER TABLE `sexo`
+  ADD PRIMARY KEY (`SexoID`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -395,15 +440,40 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  MODIFY `ArchivoID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `CargoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `curriculum`
+--
+ALTER TABLE `curriculum`
+  MODIFY `CurriculumID` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
   MODIFY `DepartamentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `EmpresaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `parametroempresa`
 --
 ALTER TABLE `parametroempresa`
   MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `RolID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
@@ -412,7 +482,7 @@ ALTER TABLE `parametroempresa`
 -- Filtros para la tabla `archivo`
 --
 ALTER TABLE `archivo`
-  ADD CONSTRAINT `fk_Archivo_Empresa1` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Archivo_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `auth_assignment`
@@ -434,10 +504,16 @@ ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `curriculum`
+--
+ALTER TABLE `curriculum`
+  ADD CONSTRAINT `fk_Curriculum_Sexo1` FOREIGN KEY (`Sexo_SexoID`) REFERENCES `sexo` (`SexoID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  ADD CONSTRAINT `fk_Departamento_Empresa1` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Departamento_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `parametro`
@@ -449,8 +525,8 @@ ALTER TABLE `parametro`
 -- Filtros para la tabla `parametroempresa`
 --
 ALTER TABLE `parametroempresa`
-  ADD CONSTRAINT `fk_Parametro_Departamento1` FOREIGN KEY (`Departamento_DepartamentoID`) REFERENCES `departamento` (`DepartamentoID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Parametro_Empresa1` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ParametroEmpresa_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Parametro_Departamento1` FOREIGN KEY (`Departamento_DepartamentoID`) REFERENCES `departamento` (`DepartamentoID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `recibo`
@@ -462,9 +538,8 @@ ALTER TABLE `recibo`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_Usuario_Cargo1` FOREIGN KEY (`CargoID`) REFERENCES `cargo` (`CargoID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Usuario_Empresa1` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Usuario_Rol` FOREIGN KEY (`RolID`) REFERENCES `rol` (`RolID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Usuario_Cargo` FOREIGN KEY (`CargoID`) REFERENCES `cargo` (`CargoID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Usuario_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

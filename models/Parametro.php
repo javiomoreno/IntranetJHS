@@ -35,7 +35,7 @@ class Parametro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ParametroID', 'ParametroFechaReg', 'ReciboID'], 'required'],
+            [['ParametroFechaReg', 'ReciboID'], 'required'],
             [['ParametroID', 'ReciboID'], 'integer'],
             [['ParametroAsignaciones', 'ParametroDeducciones', 'ParametroNetoaCobrar'], 'number'],
             [['ParametroFechaReg'], 'safe'],
