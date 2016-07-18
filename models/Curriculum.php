@@ -44,12 +44,11 @@ class Curriculum extends \yii\db\ActiveRecord
     {
         return [
             [['CurriculumFechNaci'], 'safe'],
-            [['CurriculumArchivo'], 'string'],
             [['Sexo_SexoID'], 'required'],
             [['Sexo_SexoID'], 'integer'],
             [['CurriculumNombre', 'CurriculumApellido', 'CurriculumCedula', 'CurriculumLugNaci', 'CurriculumTeleFijo', 'CurriculumTeleCelu', 'CurriculumDisponibilidad'], 'string', 'max' => 45],
             [['CurriculumDireccion', 'CurriculumExpeLabo'], 'string', 'max' => 200],
-            [['CurriculumEmail', 'CurriculumEstuReal', 'CurriculumCursReal'], 'string', 'max' => 100],
+            [['CurriculumEmail', 'CurriculumEstuReal', 'CurriculumCursReal', 'CurriculumArchivo'], 'string', 'max' => 100],
             [['Sexo_SexoID'], 'exist', 'skipOnError' => true, 'targetClass' => Sexo::className(), 'targetAttribute' => ['Sexo_SexoID' => 'SexoID']],
         ];
     }

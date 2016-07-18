@@ -94,10 +94,10 @@ class SiteController extends Controller
         $this->layout ="main";
         $model = new Curriculum();
         $modelArchivo = new UploadFile();
-        if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($modelArchivo, 'archivoFile');
-            $modelArchivo->archivoFile = file_get_contents($file->tempName);
+        if ($model->load(Yii::$app->request->post()) && $modelArchivo->load(Yii::$app->request->post())) {
+            $modelArchivo->archivoFile = UploadedFile::getInstance($modelArchivo, 'archivoFile');
             if ($modelArchivo->upload()) {
+              $model->CurriculumArchivo = $modelArchivo->archivoFile->baseName;
               $model->save();
             }
             else{
