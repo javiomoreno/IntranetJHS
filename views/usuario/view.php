@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'UsuarioID',
               'UsuarioNombre',
               'UsuarioApellido',
-              'UsuarrioCedula',
+              'UsuarioCedula',
               'UsuarioCorreo',
               [                      // the owner name of the model
                 'label' => 'Clave de Acceso',

@@ -36,7 +36,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                              <?= Html::a('Perfil', ['perfil'], ['class' => 'btn btn-default btn-flat']);?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

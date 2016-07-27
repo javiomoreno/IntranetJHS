@@ -46,14 +46,15 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['UsuarioID', 'UsuarioNombre', 'UsuarioApellido', 'UsuarrioCedula', 'UsuarioCorreo', 'UsuarioClave', 'UsuarioFechaIng', 'UsuarioBanco', 'UsuarioFechaReg', 'RolID', 'EmpresaID', 'CargoID'], 'required'],
+            [['UsuarioNombre', 'UsuarioApellido', 'UsuarioCedula', 'UsuarioCorreo', 'UsuarioClave', 'UsuarioFechaIng', 'UsuarioBanco', 'UsuarioFechaReg', 'RolID', 'EmpresaID', 'CargoID'], 'required'],
             [['UsuarioID', 'RolID', 'EmpresaID', 'CargoID'], 'integer'],
             [['UsuarioFechaNac', 'UsuarioFechaIng', 'UsuarioFechaReg'], 'safe'],
             [['UsuarioNombre', 'UsuarioApellido', 'UsuarioCorreo', 'UsuarioClave', 'UsuarioCuentaBanco'], 'string', 'max' => 100],
-            [['UsuarrioCedula'], 'string', 'max' => 20],
+            [['UsuarioCedula'], 'string', 'max' => 20],
             [['UsuarioBanco'], 'string', 'max' => 50],
-            [['UsuarrioCedula'], 'unique'],
+            [['UsuarioCedula'], 'unique'],
             [['UsuarioCorreo'], 'unique'],
+            [['UsuarioCorreo'], 'email'],
             [['CargoID'], 'exist', 'skipOnError' => true, 'targetClass' => Cargo::className(), 'targetAttribute' => ['CargoID' => 'CargoID']],
             [['EmpresaID'], 'exist', 'skipOnError' => true, 'targetClass' => Empresa::className(), 'targetAttribute' => ['EmpresaID' => 'EmpresaID']],
             [['RolID'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['RolID' => 'RolID']],
@@ -69,7 +70,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
             'UsuarioID' => 'Usuario ID',
             'UsuarioNombre' => 'Usuario Nombre',
             'UsuarioApellido' => 'Usuario Apellido',
-            'UsuarrioCedula' => 'Usuarrio Cedula',
+            'UsuarioCedula' => 'Usuario Cedula',
             'UsuarioCorreo' => 'Usuario Correo',
             'UsuarioClave' => 'Usuario Clave',
             'UsuarioFechaNac' => 'Usuario Fecha Nac',
@@ -143,7 +144,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['UsuarrioCedula' => $username]);
+        return static::findOne(['UsuarioCedula' => $username]);
     }
 
     /**

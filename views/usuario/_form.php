@@ -23,7 +23,7 @@ use yii\jui\DatePicker;
 
               <?= $form->field($model, 'UsuarioApellido')->textInput(['maxlength' => true]) ?>
 
-              <?= $form->field($model, 'UsuarrioCedula')->textInput(['maxlength' => true]) ?>
+              <?= $form->field($model, 'UsuarioCedula')->textInput(['maxlength' => true]) ?>
 
               <?= $form->field($model, 'UsuarioCorreo')->textInput(['maxlength' => true]) ?>
 
@@ -39,9 +39,9 @@ use yii\jui\DatePicker;
 
               <?= $form->field($model, 'RolID')->dropDownList($model->listaRoles, ['prompt' => 'Seleccione Rol del Usuario' ])->label('Rol de Usuario <span class="asterisco">*</span>');?>
 
-              <?= $form->field($model, 'RolID')->dropDownList($model->listaEmpresas, ['prompt' => 'Seleccione Empresa del Usuario' ])->label('Empresa de Usuario <span class="asterisco">*</span>');?>
+              <?= $form->field($model, 'EmpresaID')->dropDownList($model->listaEmpresas, ['prompt' => 'Seleccione Empresa del Usuario' ])->label('Empresa de Usuario <span class="asterisco">*</span>');?>
 
-              <?= $form->field($model, 'RolID')->dropDownList($model->listaCargos, ['prompt' => 'Seleccione Cargo del Usuario' ])->label('Cargo de Usuario <span class="asterisco">*</span>');?>
+              <?= $form->field($model, 'CargoID')->dropDownList($model->listaCargos, ['prompt' => 'Seleccione Cargo del Usuario' ])->label('Cargo de Usuario <span class="asterisco">*</span>');?>
 
               <div class="row">
                 <div class="col-lg-12" style="text-align: center;">

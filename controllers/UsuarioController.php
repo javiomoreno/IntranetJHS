@@ -80,13 +80,27 @@ class UsuarioController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->UsuarioFechaReg = date('Y-m-d H:i:s');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->UsuarioID]);
-        } else {
+            $model->setPassword($model->UsuarioClave);
+            if ($model->save()) {
+              $auth = \Yii::$app->authManager;
+              if ($model->RolID == 1) {
+                  $role = $auth->getRole('Administrador');
+                  $auth->assign($role, $model->UsuarioID);
+              }
+              else if ($model->RolID == 2) {
+                  $role = $auth->getRole('Empleado');
+                  $auth->assign($role, $model->UsuarioID);
+              }
+
+              return $this->redirect(['view', 'id' => $model->UsuarioID]);
+            }
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**

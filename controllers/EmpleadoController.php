@@ -8,7 +8,7 @@ use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
 use yii\filters\AccessControl;
 
-class AdministradorController extends Controller
+class EmpleadoController extends Controller
 {
     public function behaviors()
     {
@@ -20,7 +20,7 @@ class AdministradorController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['Administrador'],
+                        'roles' => ['Empleado'],
                     ],
                 ],
             ],
@@ -48,14 +48,50 @@ class AdministradorController extends Controller
 
     public function actionIndex()
     {
-        $this->layout ="main-administrador";
+        $this->layout ="main-empleado";
         return $this->render('index');
+    }
+
+    public function actionConsultarRecibos()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('consultar-recibos');
+    }
+
+    public function actionLaEmpresa()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('la-empresa');
+    }
+
+    public function actionMisionVision()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('mision-vision');
     }
 
     public function actionPerfil()
     {
-        $this->layout ="main-administrador";
+        $this->layout ="main-empleado";
         return $this->render('perfil');
+    }
+
+    public function actionRecursosHumanos()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('recursos-humanos');
+    }
+
+    public function actionSolicitudes()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('solicitudes');
+    }
+
+    public function actionValores()
+    {
+        $this->layout ="main-empleado";
+        return $this->render('valores');
     }
 
 }

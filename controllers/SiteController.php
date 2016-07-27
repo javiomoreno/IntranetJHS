@@ -54,37 +54,23 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout ="main";
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        if (!\Yii::$app->user->isGuest) {
+          if(Yii::$app->request->referrer){
+            return $this->redirect(Yii::$app->request->referrer);
+          }else{
+            return $this->goBack();
+          }
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(\Yii::$app->user->can('Administrador')){
                 return Yii::$app->getResponse()->redirect(array('/administrador/index'));
             }
-            else if(\Yii::$app->user->can('Usuario')){
-                return Yii::$app->getResponse()->redirect(array('/usuario/index'));
+            else if(\Yii::$app->user->can('Empleado')){
+                return Yii::$app->getResponse()->redirect(array('/empleado/index'));
             }
-            return $this->goHome();
         }
         return $this->render('index', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionLogin()
-    {
-        $this->layout ="main-login";
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
             'model' => $model,
         ]);
     }
@@ -98,6 +84,7 @@ class SiteController extends Controller
             $modelArchivo->archivoFile = UploadedFile::getInstance($modelArchivo, 'archivoFile');
             if ($modelArchivo->upload()) {
               $model->CurriculumArchivo = $modelArchivo->archivoFile->baseName;
+              $model->CurriculumFechNaci = date('Y/m/d', strtotime($model->CurriculumFechNaci));
               $model->save();
             }
             else{

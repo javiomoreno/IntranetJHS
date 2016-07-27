@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-07-2016 a las 22:51:23
+-- Tiempo de generación: 27-07-2016 a las 17:59:33
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -52,7 +52,8 @@ CREATE TABLE `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('Administrador', '1', NULL);
+('Administrador', '1', NULL),
+('Empleado', '4', 1469633210);
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,8 @@ CREATE TABLE `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('Administrador', 1, 'Administrador del Sistema', NULL, NULL, NULL, NULL);
+('Administrador', 1, 'Administrador del Sistema', NULL, NULL, NULL, NULL),
+('Empleado', 1, 'Empleado del Sistema', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -147,6 +149,13 @@ CREATE TABLE `curriculum` (
   `CurriculumArchivo` varchar(100) DEFAULT NULL,
   `Sexo_SexoID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `curriculum`
+--
+
+INSERT INTO `curriculum` (`CurriculumID`, `CurriculumNombre`, `CurriculumApellido`, `CurriculumCedula`, `CurriculumFechNaci`, `CurriculumLugNaci`, `CurriculumDireccion`, `CurriculumTeleFijo`, `CurriculumTeleCelu`, `CurriculumEmail`, `CurriculumExpeLabo`, `CurriculumEstuReal`, `CurriculumCursReal`, `CurriculumDisponibilidad`, `CurriculumArchivo`, `Sexo_SexoID`) VALUES
+(4, '', '', '', '2016-07-18 00:00:00', '', '', '', '', '', '', '', '', '', 'BanescOnline miercoles, 13 de julio de 2016 21_42_27 465 pm', 2);
 
 -- --------------------------------------------------------
 
@@ -268,7 +277,8 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`RolID`, `RolNombre`, `RolDescripcion`, `RolFechaReg`) VALUES
-(1, 'Administrador', 'Administrador del Sistema', '2016-07-04');
+(1, 'Administrador', 'Administrador del Sistema', '2016-07-04'),
+(2, 'Empleado', 'Empleado del Sistema', '2016-07-25');
 
 -- --------------------------------------------------------
 
@@ -300,7 +310,7 @@ CREATE TABLE `usuario` (
   `UsuarioID` int(11) NOT NULL,
   `UsuarioNombre` varchar(100) NOT NULL,
   `UsuarioApellido` varchar(100) NOT NULL,
-  `UsuarrioCedula` varchar(20) NOT NULL,
+  `UsuarioCedula` varchar(20) NOT NULL,
   `UsuarioCorreo` varchar(100) NOT NULL,
   `UsuarioClave` varchar(100) NOT NULL,
   `UsuarioFechaNac` date DEFAULT NULL,
@@ -317,8 +327,9 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`UsuarioID`, `UsuarioNombre`, `UsuarioApellido`, `UsuarrioCedula`, `UsuarioCorreo`, `UsuarioClave`, `UsuarioFechaNac`, `UsuarioFechaIng`, `UsuarioBanco`, `UsuarioCuentaBanco`, `UsuarioFechaReg`, `RolID`, `EmpresaID`, `CargoID`) VALUES
-(1, 'Administrador', 'Administrador', '123456', 'admin@gmail.com', 'MTIzNDU2', NULL, '2016-07-04', 'admin', '', '2016-07-04', 1, 1, 1);
+INSERT INTO `usuario` (`UsuarioID`, `UsuarioNombre`, `UsuarioApellido`, `UsuarioCedula`, `UsuarioCorreo`, `UsuarioClave`, `UsuarioFechaNac`, `UsuarioFechaIng`, `UsuarioBanco`, `UsuarioCuentaBanco`, `UsuarioFechaReg`, `RolID`, `EmpresaID`, `CargoID`) VALUES
+(1, 'Administrador', 'Administrador', '123456', 'admin@gmail.com', 'MTIzNDU2', NULL, '2016-07-04', 'admin', '', '2016-07-04', 1, 1, 1),
+(4, 'Empleado', 'Empleado', '1234567', 'empleado@gmail.com', 'MTIzNDU2Nw==', '2014-10-06', '2016-07-04', 'Banesco', '', '2016-07-27', 2, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -429,7 +440,7 @@ ALTER TABLE `sexo`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`UsuarioID`),
-  ADD UNIQUE KEY `UsuarrioCedula_UNIQUE` (`UsuarrioCedula`),
+  ADD UNIQUE KEY `UsuarrioCedula_UNIQUE` (`UsuarioCedula`),
   ADD UNIQUE KEY `UsuarioCorreo_UNIQUE` (`UsuarioCorreo`),
   ADD KEY `fk_Usuario_Rol_idx` (`RolID`),
   ADD KEY `fk_Usuario_Empresa1_idx` (`EmpresaID`),
@@ -453,27 +464,32 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT de la tabla `curriculum`
 --
 ALTER TABLE `curriculum`
-  MODIFY `CurriculumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CurriculumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `DepartamentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `DepartamentoID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `EmpresaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EmpresaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `parametroempresa`
 --
 ALTER TABLE `parametroempresa`
-  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `RolID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `UsuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --
@@ -532,14 +548,15 @@ ALTER TABLE `parametroempresa`
 -- Filtros para la tabla `recibo`
 --
 ALTER TABLE `recibo`
-  ADD CONSTRAINT `fk_Recibo_Usuario1` FOREIGN KEY (`UsuarioID`) REFERENCES `usuario` (`UsuarioID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Recibo_Usuario` FOREIGN KEY (`UsuarioID`) REFERENCES `usuario` (`UsuarioID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_Usuario_Cargo` FOREIGN KEY (`CargoID`) REFERENCES `cargo` (`CargoID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Usuario_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Usuario_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Usuario_Rol` FOREIGN KEY (`RolID`) REFERENCES `rol` (`RolID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
