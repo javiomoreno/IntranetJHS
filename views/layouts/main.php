@@ -18,7 +18,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>JHS</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -36,9 +36,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Registrar', 'url' => ['/site/registrar']],
+            ['label' => 'Curriculo', 'url' => ['/site/registrar']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/index']]
+                ['label' => 'Ingresar', 'url' => ['/site/index']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])

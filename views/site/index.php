@@ -21,7 +21,7 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><img src="imagenes/logo.png" /></a>
+        <a href="#"><img src="../imagenes/logo.png" /></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -41,7 +41,7 @@ $fieldOptions2 = [
 
         <div class="row">
             <!-- /.col -->
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="margin-left:29%">
                 <?= Html::submitButton('Iniciar Sesión', ['class' => 'btn btn-success btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->

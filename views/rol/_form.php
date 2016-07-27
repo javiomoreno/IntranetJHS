@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
           <div class="box-body">
             <?= $form->field($model, 'RolNombre')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'RolDescripcion')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'RolDescripcion')->textArea(['maxlength' => true]) ?>
 
             <div class="row">
               <div class="col-lg-12" style="text-align: center;">

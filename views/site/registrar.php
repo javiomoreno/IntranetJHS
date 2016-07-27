@@ -7,7 +7,7 @@ use yii\jui\DatePicker;
 
 <div class="register-box">
   <div class="login-logo">
-      <a href="#"><img src="imagenes/logo.png" /></a>
+      <a href="#"><img src="../imagenes/logo.png" /></a>
   </div>
 
   <div class="row">
@@ -40,7 +40,7 @@ use yii\jui\DatePicker;
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <?= $form->field($model, 'CurriculumDireccion')->textInput(['maxlength' => true]) ?>
+                  <?= $form->field($model, 'CurriculumDireccion')->textArea(['maxlength' => true]) ?>
                 </div>
               </div>
               <div class="row">
@@ -58,17 +58,17 @@ use yii\jui\DatePicker;
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <?= $form->field($model, 'CurriculumExpeLabo')->textInput(['maxlength' => true]) ?>
+                  <?= $form->field($model, 'CurriculumExpeLabo')->textArea(['maxlength' => true]) ?>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <?= $form->field($model, 'CurriculumEstuReal')->textInput(['maxlength' => true]) ?>
+                  <?= $form->field($model, 'CurriculumEstuReal')->textArea(['maxlength' => true]) ?>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <?= $form->field($model, 'CurriculumCursReal')->textInput(['maxlength' => true]) ?>
+                  <?= $form->field($model, 'CurriculumCursReal')->textArea(['maxlength' => true]) ?>
                 </div>
               </div>
               <div class="row">
@@ -79,11 +79,11 @@ use yii\jui\DatePicker;
                   <?= $form->field($modelArchivo, 'archivoFile')->fileInput() ?>
                 </div>
               </div>
-
+              <div class="row"><p>&nbsp;</p></div>
               <div class="row">
                 <div class="col-lg-12" style="text-align: center;">
                   <div class="form-group">
-                      <?= Html::submitButton($model->isNewRecord ? 'Guardar' : 'Modificar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success']) ?>
+                      <?= Html::submitButton($model->isNewRecord ? 'Enviar Curriculo' : 'Modificar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success']) ?>
                   </div>
                 </div>
               </div>

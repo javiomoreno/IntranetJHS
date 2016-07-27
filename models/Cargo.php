@@ -33,7 +33,7 @@ class Cargo extends \yii\db\ActiveRecord
             [['CargoNombre', 'CargoFechaReg'], 'required'],
             [['CargoID'], 'integer'],
             [['CargoFechaReg'], 'safe'],
-            [['CargoNombre', 'CargoDescripcion'], 'string', 'max' => 45],
+            [['CargoNombre', 'CargoDescripcion'], 'string', 'max' => 100],
         ];
     }
 
@@ -44,9 +44,9 @@ class Cargo extends \yii\db\ActiveRecord
     {
         return [
             'CargoID' => 'Cargo ID',
-            'CargoNombre' => 'Cargo Nombre',
-            'CargoDescripcion' => 'Cargo Descripcion',
-            'CargoFechaReg' => 'Cargo Fecha Reg',
+            'CargoNombre' => 'Nombre',
+            'CargoDescripcion' => 'Descripcion',
+            'CargoFechaReg' => 'Fecha de Registro',
         ];
     }
 

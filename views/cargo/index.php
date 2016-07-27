@@ -61,8 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
       ],
       "language": {
         "lengthMenu": "_MENU_ Registros por pantalla",
-        "zeroRecords": "No Hay Datos - Disculpe",
-        "info": "Vista página _PAGE_ de _PAGES_",
+        "zeroRecords": "No existen cargos registrados",
+        "info": "Página _PAGE_ de _PAGES_",
         "infoEmpty": "No hay registros disponibles",
         "infoFiltered": "(filtered from _MAX_ total records)",
         "sSearch": "Buscar:",

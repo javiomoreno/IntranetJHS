@@ -45,9 +45,9 @@ class Rol extends \yii\db\ActiveRecord
     {
         return [
             'RolID' => 'Rol ID',
-            'RolNombre' => 'Rol Nombre',
-            'RolDescripcion' => 'Rol Descripcion',
-            'RolFechaReg' => 'Rol Fecha Reg',
+            'RolNombre' => 'Nombre',
+            'RolDescripcion' => 'Descripcion',
+            'RolFechaReg' => 'Fecha de Registro',
         ];
     }
 

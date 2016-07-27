@@ -1,5 +1,5 @@
 .box {
-    border-top: 3px solid #00a65a !important;
+    border-top: 3px solid #ff4e1e !important;
 }
 
 .obligatorios{
@@ -10,4 +10,64 @@
 
 .btn-success{
     background-color: #ff4e1e !important;
+}
+
+.btn-success:hover{
+    background-color: #ff4e1e !important;
+}
+
+.login-box{
+	margin: 0 auto;
+	max-width: 300px;
+}
+
+.login-box-msg{
+	text-align: center;
+}
+
+.login-logo{
+	text-align: center;
+}
+
+.navbar-inverse{
+	background-color: #FF4E1E !important;
+	color: #ffffff !important;
+	border-color: #ffffff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+	color: #ffffff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+	color: #ffffff !important;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
+	background-color: #00ACE4 !important;
+}
+.box-body{
+	margin: 0 auto;
+	max-width: 700px;
+}
+.skin-green-light .main-header .navbar{
+	background-color: #393f4c !important;
+}
+.skin-green-light .main-header .logo{
+	background-color: #393f4c !important;
+}
+.skin-green-light .main-header .logo:hover{
+	background-color: #393f4c !important;
+}
+.skin-green-light .main-header .navbar .sidebar-toggle:hover{
+	background-color: #ff4e1e !important; 
+}
+.skin-green-light .main-header .navbar .sidebar-toggle{
+	background-color: #ff4e1e !important; 
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+	background-color: #02a8df !important;
+	border-color:#02a8df !important;
+}
+a{
+	
 }

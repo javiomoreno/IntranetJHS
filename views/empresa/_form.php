@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
           <div class="box-body">
             <?= $form->field($model, 'EmpresaNombre')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'EmpresaDescripcion')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'EmpresaDescripcion')->textArea(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'EmpresaRIF')->textInput(['maxlength' => true]) ?>
 

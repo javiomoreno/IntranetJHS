@@ -47,10 +47,10 @@ class Empresa extends \yii\db\ActiveRecord
     {
         return [
             'EmpresaID' => 'Empresa ID',
-            'EmpresaNombre' => 'Empresa Nombre',
-            'EmpresaDescripcion' => 'Empresa Descripcion',
-            'EmpresaFechaReg' => 'Empresa Fecha Reg',
-            'EmpresaRIF' => 'Empresa Rif',
+            'EmpresaNombre' => 'Nombre',
+            'EmpresaDescripcion' => 'Descripcion',
+            'EmpresaFechaReg' => 'Fecha de Registro',
+            'EmpresaRIF' => 'Rif',
         ];
     }
 
