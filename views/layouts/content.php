@@ -39,8 +39,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2016 <a href="http://intranetjhs.com.ve">Intranet JHS</a>.</strong> Todos los derechos reservados.
 </footer>
 
 <!-- Control Sidebar -->
@@ -54,7 +53,7 @@ use dmstr\widgets\Alert;
     <div class="tab-content">
         <!-- Home tab content -->
         <div class="tab-pane" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <h3 class="control-sidebar-heading">Activitidad Reciente</h3>
             <ul class='control-sidebar-menu'>
                 <li>
                     <a href='javascript::;'>
