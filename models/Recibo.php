@@ -8,9 +8,14 @@ use Yii;
  * This is the model class for table "recibo".
  *
  * @property integer $ReciboID
- * @property string $ReciboFechaInicio
- * @property string $ReciboFechaFin
+ * @property string $ReciboFecha
  * @property integer $ReciboNumero
+ * @property double $ReciboSuelDiar
+ * @property double $ReciboSuelSema
+ * @property double $ReciboSuelMens
+ * @property double $ReciboAsignacion
+ * @property double $ReciboDeduccion
+ * @property double $ReciboRetencion
  * @property string $Recibocol
  * @property integer $UsuarioID
  *
@@ -33,9 +38,10 @@ class Recibo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ReciboID', 'UsuarioID'], 'required'],
+            [['UsuarioID'], 'required'],
             [['ReciboID', 'ReciboNumero', 'UsuarioID'], 'integer'],
-            [['ReciboFechaInicio', 'ReciboFechaFin'], 'safe'],
+            [['ReciboFecha'], 'safe'],
+            [['ReciboSuelDiar', 'ReciboSuelSema', 'ReciboSuelMens', 'ReciboAsignacion', 'ReciboDeduccion', 'ReciboRetencion'], 'number'],
             [['Recibocol'], 'string', 'max' => 45],
             [['UsuarioID'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['UsuarioID' => 'UsuarioID']],
         ];
@@ -48,9 +54,14 @@ class Recibo extends \yii\db\ActiveRecord
     {
         return [
             'ReciboID' => 'Recibo ID',
-            'ReciboFechaInicio' => 'Recibo Fecha Inicio',
-            'ReciboFechaFin' => 'Recibo Fecha Fin',
+            'ReciboFecha' => 'Recibo Fecha',
             'ReciboNumero' => 'Recibo Numero',
+            'ReciboSuelDiar' => 'Recibo Suel Diar',
+            'ReciboSuelSema' => 'Recibo Suel Sema',
+            'ReciboSuelMens' => 'Recibo Suel Mens',
+            'ReciboAsignacion' => 'Recibo Asignacion',
+            'ReciboDeduccion' => 'Recibo Deduccion',
+            'ReciboRetencion' => 'Recibo Retencion',
             'Recibocol' => 'Recibocol',
             'UsuarioID' => 'Usuario ID',
         ];

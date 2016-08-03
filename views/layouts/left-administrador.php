@@ -27,6 +27,7 @@
                     ['label' => 'Departamentos', 'icon' => 'fa fa-sitemap', 'url' => ['/departamento/index']],
                     ['label' => 'Parametros', 'icon' => 'fa fa-clone', 'url' => ['/parametroempresa/index']],
                     ['label' => 'Cargos', 'icon' => 'fa fa-black-tie', 'url' => ['/cargo/index']],
+                    ['label' => 'Recibos', 'icon' => 'fa fa-file-text', 'url' => ['/recibo/index']],
                 ],
             ]
         ) ?>

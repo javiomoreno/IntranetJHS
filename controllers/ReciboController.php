@@ -4,10 +4,15 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Recibo;
+use app\models\CargarArchivo;
+use app\models\Usuario;
+use app\models\Parametro;
 use app\models\search\ReciboSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * ReciboController implements the CRUD actions for Recibo model.
@@ -20,6 +25,17 @@ class ReciboController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'view', 'update', 'cargar-archivo'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'view', 'update', 'cargar-archivo'],
+                        'allow' => true,
+                        'roles' => ['Administrador'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,12 +51,10 @@ class ReciboController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ReciboSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $this->layout ="main-administrador";
+        $model = Recibo::find()->all();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -51,8 +65,12 @@ class ReciboController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout ="main-administrador";
+        $modelRecibo = $this->findModel($id);
+        $modelUsuario = Usuario::find()->where(['UsuarioID' => $modelRecibo->UsuarioID])->one();
+        $modelParametro = Parametro::find()->where(['ReciboID' => $modelRecibo->ReciboID])->all();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'modelRecibo' => $modelRecibo, 'modelUsuario' => $modelUsuario, 'modelParametro' => $modelParametro
         ]);
     }
 
@@ -63,6 +81,7 @@ class ReciboController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout ="main-administrador";
         $model = new Recibo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +101,7 @@ class ReciboController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout ="main-administrador";
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -120,5 +140,87 @@ class ReciboController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionCargarArchivo()
+    {
+        $this->layout ="main-administrador";
+        $model = new CargarArchivo();
+        if (Yii::$app->request->isPost) {
+          $file = UploadedFile::getInstance($model, 'archivo');
+          $handle = fopen($file->tempName, 'r');
+          $i = 0;
+          if ($handle) {
+            while (($line = fgetcsv($handle, 1000, '!')) != false ){
+              $cantidad = count($line);
+              $h = 0;
+              $vectorCodigos = [];
+              for ($j = 0; $j  < ($cantidad - 9); $j = $j + 3) {
+                $vectorCodigos[$h] = [
+                  "codigo" => $line[$j+9],
+                  "v_aux" => $line[$j+10],
+                  "valor" => $line[$j+11],
+                ];
+                $h ++;
+              }
+              $model2[$i] = [
+                  "id" => $i,
+                  "ceduempl" => $line[0],
+                  "fechreci" => $line[1],
+                  "numereci" => $line[2],
+                  "sueldiar" => $line[3],
+                  "suelsema" => $line[4],
+                  "suelmens" => $line[5],
+                  "asignaci" => $line[6],
+                  "deduccio" => $line[7],
+                  "retencio" => $line[8],
+                  "codigos" => $vectorCodigos,
+              ];
+              $i ++;
+            }
+          }
+          fclose($handle);
+          return $this->render('cargar-registros', ['model2'=> $model2]);
+        }
+        return $this->render('cargar-archivo', ['model'=>$model]);
+    }
+
+    public function actionCargarRegistros(array $model)
+    {
+        $count = count($model);
+        $bandera = false;
+        for ($i = 0; $i < $count; $i ++) {
+          $model2 = new Recibo();
+          $model2->ReciboFecha = date('Y/m/d', strtotime($model[$i]['fechreci']));
+          $model2->ReciboNumero = intval($model[$i]['numereci']);
+          $model2->ReciboSuelDiar =  (float) $model[$i]['sueldiar'];
+          $model2->ReciboSuelSema =  (float) $model[$i]['suelsema'];
+          $model2->ReciboSuelMens =  (float) $model[$i]['suelmens'];
+          $model2->ReciboAsignacion =  (float) $model[$i]['asignaci'];
+          $model2->ReciboDeduccion =  (float) $model[$i]['deduccio'];
+          $model2->ReciboRetencion =  (float) $model[$i]['retencio'];
+          $model2->UsuarioID = Usuario::find()->where(['UsuarioCedula' => $model[$i]['ceduempl']])->one()->UsuarioID;
+
+          if (!$model2->save()) {
+            $bandera = true;
+            break;
+          }
+          else{
+            for ($j = 0; $j < count($model[$i]['codigos']); $j ++) {
+              $model3 = new Parametro();
+              $model3->ReciboID = $model2->ReciboID;
+              $model3->ParametroCodigo = $model[$i]['codigos'][$j]['codigo'];
+              $model3->ParametroValorAuxiliar = $model[$i]['codigos'][$j]['v_aux'];
+              $model3->ParametroValor = $model[$i]['codigos'][$j]['valor'];
+              $model3->ParametroFechaReg = date('Y-m-d H:i:s');
+              $model3->save();
+            }
+          }
+        }
+        if ($bandera) {
+          Yii::$app->session->setFlash('noGuardo');
+          return Yii::$app->getResponse()->redirect(array('/recibo/index', 'id' => $model2->UsuarioID));
+        }
+        return Yii::$app->getResponse()->redirect(array('/recibo/index'));
     }
 }

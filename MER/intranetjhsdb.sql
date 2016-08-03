@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 17:59:33
+-- Tiempo de generación: 03-08-2016 a las 04:40:46
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -220,11 +220,8 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 CREATE TABLE `parametro` (
   `ParametroID` int(11) NOT NULL,
   `ParametroCodigo` varchar(10) DEFAULT NULL,
-  `ParametroDescripcion` varchar(100) DEFAULT NULL,
   `ParametroValorAuxiliar` varchar(20) DEFAULT NULL,
-  `ParametroAsignaciones` double DEFAULT NULL,
-  `ParametroDeducciones` double DEFAULT NULL,
-  `ParametroNetoaCobrar` double DEFAULT NULL,
+  `ParametroValor` varchar(50) DEFAULT NULL,
   `ParametroFechaReg` date NOT NULL,
   `ReciboID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -252,9 +249,14 @@ CREATE TABLE `parametroempresa` (
 
 CREATE TABLE `recibo` (
   `ReciboID` int(11) NOT NULL,
-  `ReciboFechaInicio` date DEFAULT NULL,
-  `ReciboFechaFin` date DEFAULT NULL,
+  `ReciboFecha` date DEFAULT NULL,
   `ReciboNumero` int(11) DEFAULT NULL,
+  `ReciboSuelDiar` decimal(10,0) DEFAULT NULL,
+  `ReciboSuelSema` decimal(10,0) DEFAULT NULL,
+  `ReciboSuelMens` decimal(10,0) DEFAULT NULL,
+  `ReciboAsignacion` decimal(10,0) DEFAULT NULL,
+  `ReciboDeduccion` decimal(10,0) DEFAULT NULL,
+  `ReciboRetencion` decimal(10,0) DEFAULT NULL,
   `Recibocol` varchar(45) DEFAULT NULL,
   `UsuarioID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -476,10 +478,20 @@ ALTER TABLE `departamento`
 ALTER TABLE `empresa`
   MODIFY `EmpresaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT de la tabla `parametro`
+--
+ALTER TABLE `parametro`
+  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
 -- AUTO_INCREMENT de la tabla `parametroempresa`
 --
 ALTER TABLE `parametroempresa`
   MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `recibo`
+--
+ALTER TABLE `recibo`
+  MODIFY `ReciboID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
@@ -535,7 +547,7 @@ ALTER TABLE `departamento`
 -- Filtros para la tabla `parametro`
 --
 ALTER TABLE `parametro`
-  ADD CONSTRAINT `fk_Parametro_Recibo1` FOREIGN KEY (`ReciboID`) REFERENCES `recibo` (`ReciboID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Parametro_Recibo` FOREIGN KEY (`ReciboID`) REFERENCES `recibo` (`ReciboID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `parametroempresa`
