@@ -51,16 +51,13 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionLogin()
     {
-        $this->layout ="main";
-        if (!\Yii::$app->user->isGuest) {
-          if(Yii::$app->request->referrer){
-            return $this->redirect(Yii::$app->request->referrer);
-          }else{
-            return $this->goBack();
-          }
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
         }
+
+        $this->layout ="main";
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(\Yii::$app->user->can('Administrador')){
@@ -70,9 +67,14 @@ class SiteController extends Controller
                 return Yii::$app->getResponse()->redirect(array('/empleado/index'));
             }
         }
-        return $this->render('index', [
+        return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionIndex()
+    {
+        return $this->render('index');
     }
 
     public function actionRegistrar()

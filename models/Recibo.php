@@ -16,6 +16,7 @@ use Yii;
  * @property double $ReciboAsignacion
  * @property double $ReciboDeduccion
  * @property double $ReciboRetencion
+ * @property double $ReciboTotal
  * @property string $Recibocol
  * @property integer $UsuarioID
  *
@@ -41,7 +42,7 @@ class Recibo extends \yii\db\ActiveRecord
             [['UsuarioID'], 'required'],
             [['ReciboID', 'ReciboNumero', 'UsuarioID'], 'integer'],
             [['ReciboFecha'], 'safe'],
-            [['ReciboSuelDiar', 'ReciboSuelSema', 'ReciboSuelMens', 'ReciboAsignacion', 'ReciboDeduccion', 'ReciboRetencion'], 'number'],
+            [['ReciboSuelDiar', 'ReciboSuelSema', 'ReciboSuelMens', 'ReciboAsignacion', 'ReciboDeduccion', 'ReciboRetencion', 'ReciboTotal'], 'number'],
             [['Recibocol'], 'string', 'max' => 45],
             [['UsuarioID'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['UsuarioID' => 'UsuarioID']],
         ];
@@ -62,6 +63,7 @@ class Recibo extends \yii\db\ActiveRecord
             'ReciboAsignacion' => 'Recibo Asignacion',
             'ReciboDeduccion' => 'Recibo Deduccion',
             'ReciboRetencion' => 'Recibo Retencion',
+            'ReciboTotal' => 'Recibo Total',
             'Recibocol' => 'Recibocol',
             'UsuarioID' => 'Usuario ID',
         ];

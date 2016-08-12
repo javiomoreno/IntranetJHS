@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-08-2016 a las 04:40:46
+-- Tiempo de generación: 12-08-2016 a las 18:53:18
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -257,6 +257,7 @@ CREATE TABLE `recibo` (
   `ReciboAsignacion` decimal(10,0) DEFAULT NULL,
   `ReciboDeduccion` decimal(10,0) DEFAULT NULL,
   `ReciboRetencion` decimal(10,0) DEFAULT NULL,
+  `ReciboTotal` decimal(10,0) DEFAULT NULL,
   `Recibocol` varchar(45) DEFAULT NULL,
   `UsuarioID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -481,7 +482,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `parametro`
 --
 ALTER TABLE `parametro`
-  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `parametroempresa`
 --
@@ -491,7 +492,7 @@ ALTER TABLE `parametroempresa`
 -- AUTO_INCREMENT de la tabla `recibo`
 --
 ALTER TABLE `recibo`
-  MODIFY `ReciboID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `ReciboID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4257;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --

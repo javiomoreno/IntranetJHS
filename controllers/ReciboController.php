@@ -155,11 +155,11 @@ class ReciboController extends Controller
               $cantidad = count($line);
               $h = 0;
               $vectorCodigos = [];
-              for ($j = 0; $j  < ($cantidad - 9); $j = $j + 3) {
+              for ($j = 0; $j  < ($cantidad - 10); $j = $j + 3) {
                 $vectorCodigos[$h] = [
-                  "codigo" => $line[$j+9],
-                  "v_aux" => $line[$j+10],
-                  "valor" => $line[$j+11],
+                  "codigo" => $line[$j+10],
+                  "v_aux" => $line[$j+11],
+                  "valor" => $line[$j+12],
                 ];
                 $h ++;
               }
@@ -171,9 +171,10 @@ class ReciboController extends Controller
                   "sueldiar" => $line[3],
                   "suelsema" => $line[4],
                   "suelmens" => $line[5],
-                  "asignaci" => $line[6],
-                  "deduccio" => $line[7],
-                  "retencio" => $line[8],
+                  "canttota" => $line[6],
+                  "asignaci" => $line[7],
+                  "deduccio" => $line[8],
+                  "retencio" => $line[9],
                   "codigos" => $vectorCodigos,
               ];
               $i ++;
@@ -185,42 +186,52 @@ class ReciboController extends Controller
         return $this->render('cargar-archivo', ['model'=>$model]);
     }
 
-    public function actionCargarRegistros(array $model)
+    public function actionCargarRegistros()
     {
+        $model = Yii::$app->request->post('model');
         $count = count($model);
         $bandera = false;
-        for ($i = 0; $i < $count; $i ++) {
-          $model2 = new Recibo();
-          $model2->ReciboFecha = date('Y/m/d', strtotime($model[$i]['fechreci']));
-          $model2->ReciboNumero = intval($model[$i]['numereci']);
-          $model2->ReciboSuelDiar =  (float) $model[$i]['sueldiar'];
-          $model2->ReciboSuelSema =  (float) $model[$i]['suelsema'];
-          $model2->ReciboSuelMens =  (float) $model[$i]['suelmens'];
-          $model2->ReciboAsignacion =  (float) $model[$i]['asignaci'];
-          $model2->ReciboDeduccion =  (float) $model[$i]['deduccio'];
-          $model2->ReciboRetencion =  (float) $model[$i]['retencio'];
-          $model2->UsuarioID = Usuario::find()->where(['UsuarioCedula' => $model[$i]['ceduempl']])->one()->UsuarioID;
+        $transaction = Yii::$app->db->beginTransaction();
 
-          if (!$model2->save()) {
-            $bandera = true;
-            break;
-          }
-          else{
-            for ($j = 0; $j < count($model[$i]['codigos']); $j ++) {
-              $model3 = new Parametro();
-              $model3->ReciboID = $model2->ReciboID;
-              $model3->ParametroCodigo = $model[$i]['codigos'][$j]['codigo'];
-              $model3->ParametroValorAuxiliar = $model[$i]['codigos'][$j]['v_aux'];
-              $model3->ParametroValor = $model[$i]['codigos'][$j]['valor'];
-              $model3->ParametroFechaReg = date('Y-m-d H:i:s');
-              $model3->save();
+        try {
+
+            foreach ($model as $key => $value) {
+              $model2 = new Recibo();
+              $model2->ReciboFecha = date_create_from_format('Y/m/d', strtotime($value['fechreci']));
+              $model2->ReciboNumero = intval($value['numereci']);
+              $model2->ReciboSuelDiar =  (float) $value['sueldiar'];
+              $model2->ReciboSuelSema =  (float) $value['suelsema'];
+              $model2->ReciboSuelMens =  (float) $value['suelmens'];
+              $model2->ReciboTotal =  (float) $value['canttota'];
+              $model2->ReciboAsignacion =  (float) $value['asignaci'];
+              $model2->ReciboDeduccion =  (float) $value['deduccio'];
+              $model2->ReciboRetencion =  (float) $value['retencio'];
+              $model2->UsuarioID = Usuario::find()->where(['UsuarioCedula' => $value['ceduempl']])->one()->UsuarioID;
+
+              if (!$model2->save()) {
+                $bandera = true;
+                break;
+              }
+              else{
+                for ($j = 0; $j < count($value['codigos']); $j ++) {
+                  $model3 = new Parametro();
+                  $model3->ReciboID = $model2->ReciboID;
+                  $model3->ParametroCodigo = $value['codigos'][$j]['codigo'];
+                  $model3->ParametroValorAuxiliar = $value['codigos'][$j]['v_aux'];
+                  $model3->ParametroValor = $value['codigos'][$j]['valor'];
+                  $model3->ParametroFechaReg = date('Y-m-d H:i:s');
+                  $model3->save();
+                }
+              }
             }
-          }
+
+            $transaction->commit();
+            return \yii\helpers\Json::encode('ok');
+
+        } catch (Exception $e) {
+
+            $transaction->rollBack();
+
         }
-        if ($bandera) {
-          Yii::$app->session->setFlash('noGuardo');
-          return Yii::$app->getResponse()->redirect(array('/recibo/index', 'id' => $model2->UsuarioID));
-        }
-        return Yii::$app->getResponse()->redirect(array('/recibo/index'));
     }
 }

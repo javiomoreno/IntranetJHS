@@ -36,14 +36,15 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Curriculo', 'url' => ['/site/registrar']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Ingresar', 'url' => ['/site/index']]
+                ['label' => 'Ingresar', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->UsuarioNombre . ')',
                     ['class' => 'btn btn-link']
                 )
                 . Html::endForm()
