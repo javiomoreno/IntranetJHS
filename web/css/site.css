@@ -97,3 +97,7 @@ a.desc:after {
     background-color: #fff !important;
 }
 
+.cuerpo{
+  font-family: verdana;
+  font-size: 12;
+}

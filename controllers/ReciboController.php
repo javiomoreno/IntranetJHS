@@ -207,6 +207,7 @@ class ReciboController extends Controller
               $model2->ReciboDeduccion =  (float) $value['deduccio'];
               $model2->ReciboRetencion =  (float) $value['retencio'];
               $model2->UsuarioID = Usuario::find()->where(['UsuarioCedula' => $value['ceduempl']])->one()->UsuarioID;
+              $model2->ReciboFechRegi = date('Y-m-d H:i:s');
 
               if (!$model2->save()) {
                 $bandera = true;

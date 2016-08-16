@@ -41,9 +41,8 @@ class Recibo extends \yii\db\ActiveRecord
         return [
             [['UsuarioID'], 'required'],
             [['ReciboID', 'ReciboNumero', 'UsuarioID'], 'integer'],
-            [['ReciboFecha'], 'safe'],
+            [['ReciboFecha', 'ReciboFechRegi'], 'safe'],
             [['ReciboSuelDiar', 'ReciboSuelSema', 'ReciboSuelMens', 'ReciboAsignacion', 'ReciboDeduccion', 'ReciboRetencion', 'ReciboTotal'], 'number'],
-            [['Recibocol'], 'string', 'max' => 45],
             [['UsuarioID'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['UsuarioID' => 'UsuarioID']],
         ];
     }
@@ -64,8 +63,8 @@ class Recibo extends \yii\db\ActiveRecord
             'ReciboDeduccion' => 'Recibo Deduccion',
             'ReciboRetencion' => 'Recibo Retencion',
             'ReciboTotal' => 'Recibo Total',
-            'Recibocol' => 'Recibocol',
             'UsuarioID' => 'Usuario ID',
+            'ReciboFechRegi' => 'Fecha de Registro',
         ];
     }
 

@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
 use yii\filters\AccessControl;
+use app\models\Recibo;
+use app\models\Usuario;
 
 class EmpleadoController extends Controller
 {
@@ -55,7 +57,8 @@ class EmpleadoController extends Controller
     public function actionConsultarRecibos()
     {
         $this->layout ="main-empleado";
-        return $this->render('consultar-recibos');
+        $model = Recibo::find()->where(['UsuarioID' => \Yii::$app->user->getId()])->all();
+        return $this->render('consultar-recibos', ['model' => $model]);
     }
 
     public function actionLaEmpresa()
@@ -92,6 +95,13 @@ class EmpleadoController extends Controller
     {
         $this->layout ="main-empleado";
         return $this->render('valores');
+    }
+
+    public function actionCreateSolicitud(){
+        $this->layout ="main-empleado";
+        $model = Usuario::findOne(\Yii::$app->user->getId());
+        $model2 = Recibo::find()->where(['UsuarioID' => \Yii::$app->user->getId()])->orderBy(['ReciboFechRegi' => SORT_ASC])->one()->ReciboSuelMens;
+        return $this->render('solicitudes', ['model' => $model, 'model2' => $model2]);
     }
 
 }
