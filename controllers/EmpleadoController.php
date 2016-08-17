@@ -104,4 +104,11 @@ class EmpleadoController extends Controller
         return $this->render('solicitudes', ['model' => $model, 'model2' => $model2]);
     }
 
+    public function actionImprimirSolicitud(){
+        $this->layout ="main-imprimir";
+        $model = Usuario::findOne(\Yii::$app->user->getId());
+        $model2 = Recibo::find()->where(['UsuarioID' => \Yii::$app->user->getId()])->orderBy(['ReciboFechRegi' => SORT_ASC])->one()->ReciboSuelMens;
+        return $this->render('imprimir-solicitud', ['model' => $model, 'model2' => $model2]);
+    }
+
 }
