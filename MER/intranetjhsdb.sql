@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 16, 2016 at 09:50 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Servidor: localhost
+-- Tiempo de generación: 17-08-2016 a las 04:04:41
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,44 +14,41 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `intranetjhsdb`
+-- Base de datos: `intranetjhsdb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archivo`
+-- Estructura de tabla para la tabla `archivo`
 --
 
-CREATE TABLE IF NOT EXISTS `archivo` (
-  `ArchivoID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `archivo` (
+  `ArchivoID` int(11) NOT NULL,
   `ArchivoNombre` varchar(50) DEFAULT NULL,
   `ArchivoDescripcion` varchar(200) DEFAULT NULL,
   `ArchivoRuta` varchar(100) DEFAULT NULL,
   `ArchivoFechaReg` date DEFAULT NULL,
-  `EmpresaID` int(11) NOT NULL,
-  PRIMARY KEY (`ArchivoID`),
-  KEY `fk_Archivo_Empresa1_idx` (`EmpresaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `EmpresaID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_assignment`
+-- Estructura de tabla para la tabla `auth_assignment`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_assignment` (
+CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`)
+  `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_assignment`
+-- Volcado de datos para la tabla `auth_assignment`
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
@@ -61,24 +58,21 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_item`
+-- Estructura de tabla para la tabla `auth_item`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_item` (
+CREATE TABLE `auth_item` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `type` int(11) NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `data` text COLLATE utf8_unicode_ci,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`),
-  KEY `rule_name` (`rule_name`),
-  KEY `idx-auth_item-type` (`type`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `auth_item`
+-- Volcado de datos para la tabla `auth_item`
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
@@ -88,46 +82,42 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_item_child`
+-- Estructura de tabla para la tabla `auth_item_child`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_item_child` (
+CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`)
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_rule`
+-- Estructura de tabla para la tabla `auth_rule`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_rule` (
+CREATE TABLE `auth_rule` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `data` text COLLATE utf8_unicode_ci,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cargo`
+-- Estructura de tabla para la tabla `cargo`
 --
 
-CREATE TABLE IF NOT EXISTS `cargo` (
-  `CargoID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cargo` (
+  `CargoID` int(11) NOT NULL,
   `CargoNombre` varchar(45) NOT NULL,
   `CargoDescripcion` varchar(45) DEFAULT NULL,
-  `CargoFechaReg` date NOT NULL,
-  PRIMARY KEY (`CargoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `CargoFechaReg` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cargo`
+-- Volcado de datos para la tabla `cargo`
 --
 
 INSERT INTO `cargo` (`CargoID`, `CargoNombre`, `CargoDescripcion`, `CargoFechaReg`) VALUES
@@ -138,11 +128,33 @@ INSERT INTO `cargo` (`CargoID`, `CargoNombre`, `CargoDescripcion`, `CargoFechaRe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `curriculum`
+-- Estructura de tabla para la tabla `conceptosnomina`
 --
 
-CREATE TABLE IF NOT EXISTS `curriculum` (
-  `CurriculumID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `conceptosnomina` (
+  `ConceptosNominaID` int(11) NOT NULL,
+  `ConceptosNominaCodigo` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `ConceptosNominaDescripcion` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `TipoCodigoID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `conceptosnomina`
+--
+
+INSERT INTO `conceptosnomina` (`ConceptosNominaID`, `ConceptosNominaCodigo`, `ConceptosNominaDescripcion`, `TipoCodigoID`) VALUES
+(1, 'A001', 'Sueldo', 1),
+(2, 'D002', 'Vacaciones Pagadas', 3),
+(3, 'R001', 'Seguro Social Obligatorio (Trabajador)', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curriculum`
+--
+
+CREATE TABLE `curriculum` (
+  `CurriculumID` int(11) NOT NULL,
   `CurriculumNombre` varchar(45) DEFAULT NULL,
   `CurriculumApellido` varchar(45) DEFAULT NULL,
   `CurriculumCedula` varchar(45) DEFAULT NULL,
@@ -157,13 +169,11 @@ CREATE TABLE IF NOT EXISTS `curriculum` (
   `CurriculumCursReal` varchar(100) DEFAULT NULL,
   `CurriculumDisponibilidad` varchar(45) DEFAULT NULL,
   `CurriculumArchivo` varchar(100) DEFAULT NULL,
-  `Sexo_SexoID` int(11) NOT NULL,
-  PRIMARY KEY (`CurriculumID`),
-  KEY `fk_Curriculum_Sexo1_idx` (`Sexo_SexoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `Sexo_SexoID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `curriculum`
+-- Volcado de datos para la tabla `curriculum`
 --
 
 INSERT INTO `curriculum` (`CurriculumID`, `CurriculumNombre`, `CurriculumApellido`, `CurriculumCedula`, `CurriculumFechNaci`, `CurriculumLugNaci`, `CurriculumDireccion`, `CurriculumTeleFijo`, `CurriculumTeleCelu`, `CurriculumEmail`, `CurriculumExpeLabo`, `CurriculumEstuReal`, `CurriculumCursReal`, `CurriculumDisponibilidad`, `CurriculumArchivo`, `Sexo_SexoID`) VALUES
@@ -172,36 +182,33 @@ INSERT INTO `curriculum` (`CurriculumID`, `CurriculumNombre`, `CurriculumApellid
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departamento`
+-- Estructura de tabla para la tabla `departamento`
 --
 
-CREATE TABLE IF NOT EXISTS `departamento` (
-  `DepartamentoID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `departamento` (
+  `DepartamentoID` int(11) NOT NULL,
   `DepartamentoNombre` varchar(50) DEFAULT NULL,
   `DepartamentoDescripcion` varchar(200) DEFAULT NULL,
   `DepartamentoFechaReg` date DEFAULT NULL,
-  `EmpresaID` int(11) NOT NULL,
-  PRIMARY KEY (`DepartamentoID`),
-  KEY `fk_Departamento_Empresa1_idx` (`EmpresaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `EmpresaID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `empresa`
+-- Estructura de tabla para la tabla `empresa`
 --
 
-CREATE TABLE IF NOT EXISTS `empresa` (
-  `EmpresaID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empresa` (
+  `EmpresaID` int(11) NOT NULL,
   `EmpresaNombre` varchar(50) NOT NULL,
   `EmpresaDescripcion` varchar(100) DEFAULT NULL,
   `EmpresaFechaReg` date NOT NULL,
-  `EmpresaRIF` varchar(45) NOT NULL,
-  PRIMARY KEY (`EmpresaID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `EmpresaRIF` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `empresa`
+-- Volcado de datos para la tabla `empresa`
 --
 
 INSERT INTO `empresa` (`EmpresaID`, `EmpresaNombre`, `EmpresaDescripcion`, `EmpresaFechaReg`, `EmpresaRIF`) VALUES
@@ -210,17 +217,16 @@ INSERT INTO `empresa` (`EmpresaID`, `EmpresaNombre`, `EmpresaDescripcion`, `Empr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migration`
+-- Estructura de tabla para la tabla `migration`
 --
 
-CREATE TABLE IF NOT EXISTS `migration` (
+CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
+  `apply_time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `migration`
+-- Volcado de datos para la tabla `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -230,22 +236,20 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parametro`
+-- Estructura de tabla para la tabla `parametro`
 --
 
-CREATE TABLE IF NOT EXISTS `parametro` (
-  `ParametroID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `parametro` (
+  `ParametroID` int(11) NOT NULL,
   `ParametroCodigo` varchar(10) DEFAULT NULL,
   `ParametroValorAuxiliar` varchar(20) DEFAULT NULL,
   `ParametroValor` varchar(50) DEFAULT NULL,
   `ParametroFechaReg` date NOT NULL,
-  `ReciboID` int(11) NOT NULL,
-  PRIMARY KEY (`ParametroID`),
-  KEY `fk_Parametro_Recibo1_idx` (`ReciboID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1015 ;
+  `ReciboID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `parametro`
+-- Volcado de datos para la tabla `parametro`
 --
 
 INSERT INTO `parametro` (`ParametroID`, `ParametroCodigo`, `ParametroValorAuxiliar`, `ParametroValor`, `ParametroFechaReg`, `ReciboID`) VALUES
@@ -760,29 +764,26 @@ INSERT INTO `parametro` (`ParametroID`, `ParametroCodigo`, `ParametroValorAuxili
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parametroempresa`
+-- Estructura de tabla para la tabla `parametroempresa`
 --
 
-CREATE TABLE IF NOT EXISTS `parametroempresa` (
-  `ParametroID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `parametroempresa` (
+  `ParametroID` int(11) NOT NULL,
   `ParametroNombre` varchar(20) DEFAULT NULL,
   `ParametroValor` varchar(1000) DEFAULT NULL,
   `ParametroFechaReg` date DEFAULT NULL,
   `EmpresaID` int(11) DEFAULT NULL,
-  `Departamento_DepartamentoID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ParametroID`),
-  KEY `fk_Parametro_Empresa1_idx` (`EmpresaID`),
-  KEY `fk_Parametro_Departamento1_idx` (`Departamento_DepartamentoID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `Departamento_DepartamentoID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recibo`
+-- Estructura de tabla para la tabla `recibo`
 --
 
-CREATE TABLE IF NOT EXISTS `recibo` (
-  `ReciboID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `recibo` (
+  `ReciboID` int(11) NOT NULL,
   `ReciboFecha` date DEFAULT NULL,
   `ReciboNumero` int(11) DEFAULT NULL,
   `ReciboSuelDiar` decimal(10,0) DEFAULT NULL,
@@ -793,13 +794,11 @@ CREATE TABLE IF NOT EXISTS `recibo` (
   `ReciboRetencion` decimal(10,0) DEFAULT NULL,
   `ReciboTotal` decimal(10,0) DEFAULT NULL,
   `ReciboFechRegi` date DEFAULT NULL,
-  `UsuarioID` int(11) NOT NULL,
-  PRIMARY KEY (`ReciboID`),
-  KEY `fk_Recibo_Usuario1_idx` (`UsuarioID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4435 ;
+  `UsuarioID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `recibo`
+-- Volcado de datos para la tabla `recibo`
 --
 
 INSERT INTO `recibo` (`ReciboID`, `ReciboFecha`, `ReciboNumero`, `ReciboSuelDiar`, `ReciboSuelSema`, `ReciboSuelMens`, `ReciboAsignacion`, `ReciboDeduccion`, `ReciboRetencion`, `ReciboTotal`, `ReciboFechRegi`, `UsuarioID`) VALUES
@@ -896,19 +895,18 @@ INSERT INTO `recibo` (`ReciboID`, `ReciboFecha`, `ReciboNumero`, `ReciboSuelDiar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
-CREATE TABLE IF NOT EXISTS `rol` (
-  `RolID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rol` (
+  `RolID` int(11) NOT NULL,
   `RolNombre` varchar(40) NOT NULL,
   `RolDescripcion` varchar(100) DEFAULT NULL,
-  `RolFechaReg` date NOT NULL,
-  PRIMARY KEY (`RolID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `RolFechaReg` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`RolID`, `RolNombre`, `RolDescripcion`, `RolFechaReg`) VALUES
@@ -918,18 +916,17 @@ INSERT INTO `rol` (`RolID`, `RolNombre`, `RolDescripcion`, `RolFechaReg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sexo`
+-- Estructura de tabla para la tabla `sexo`
 --
 
-CREATE TABLE IF NOT EXISTS `sexo` (
+CREATE TABLE `sexo` (
   `SexoID` int(11) NOT NULL,
   `SexoNombre` varchar(45) DEFAULT NULL,
-  `SexoDescripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`SexoID`)
+  `SexoDescripcion` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sexo`
+-- Volcado de datos para la tabla `sexo`
 --
 
 INSERT INTO `sexo` (`SexoID`, `SexoNombre`, `SexoDescripcion`) VALUES
@@ -939,11 +936,32 @@ INSERT INTO `sexo` (`SexoID`, `SexoNombre`, `SexoDescripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `tipocodigo`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `UsuarioID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tipocodigo` (
+  `TipoCodigoID` int(11) NOT NULL,
+  `TipoCodigoNombre` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `TipoCodigoDescripcion` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipocodigo`
+--
+
+INSERT INTO `tipocodigo` (`TipoCodigoID`, `TipoCodigoNombre`, `TipoCodigoDescripcion`) VALUES
+(1, 'Asignación', 'Asignación'),
+(2, 'Retención', 'Retención'),
+(3, 'Deducción', 'Deducción');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `UsuarioID` int(11) NOT NULL,
   `UsuarioNombre` varchar(100) NOT NULL,
   `UsuarioApellido` varchar(100) NOT NULL,
   `UsuarioCedula` varchar(20) NOT NULL,
@@ -956,17 +974,11 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `UsuarioFechaReg` date NOT NULL,
   `RolID` int(11) NOT NULL,
   `EmpresaID` int(11) NOT NULL,
-  `CargoID` int(11) NOT NULL,
-  PRIMARY KEY (`UsuarioID`),
-  UNIQUE KEY `UsuarrioCedula_UNIQUE` (`UsuarioCedula`),
-  UNIQUE KEY `UsuarioCorreo_UNIQUE` (`UsuarioCorreo`),
-  KEY `fk_Usuario_Rol_idx` (`RolID`),
-  KEY `fk_Usuario_Empresa1_idx` (`EmpresaID`),
-  KEY `fk_Usuario_Cargo1_idx` (`CargoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `CargoID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`UsuarioID`, `UsuarioNombre`, `UsuarioApellido`, `UsuarioCedula`, `UsuarioCorreo`, `UsuarioClave`, `UsuarioFechaNac`, `UsuarioFechaIng`, `UsuarioBanco`, `UsuarioCuentaBanco`, `UsuarioFechaReg`, `RolID`, `EmpresaID`, `CargoID`) VALUES
@@ -974,67 +986,265 @@ INSERT INTO `usuario` (`UsuarioID`, `UsuarioNombre`, `UsuarioApellido`, `Usuario
 (4, 'Empleado', 'Empleado', '1234567', 'empleado@gmail.com', 'MTIzNDU2Nw==', '2014-10-06', '2016-07-04', 'Banesco', '', '2016-07-27', 2, 1, 1);
 
 --
--- Constraints for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Constraints for table `archivo`
+-- Indices de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  ADD PRIMARY KEY (`ArchivoID`),
+  ADD KEY `fk_Archivo_Empresa1_idx` (`EmpresaID`);
+
+--
+-- Indices de la tabla `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`);
+
+--
+-- Indices de la tabla `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Indices de la tabla `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indices de la tabla `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indices de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`CargoID`);
+
+--
+-- Indices de la tabla `conceptosnomina`
+--
+ALTER TABLE `conceptosnomina`
+  ADD PRIMARY KEY (`ConceptosNominaID`),
+  ADD KEY `TipoCodigoID` (`TipoCodigoID`);
+
+--
+-- Indices de la tabla `curriculum`
+--
+ALTER TABLE `curriculum`
+  ADD PRIMARY KEY (`CurriculumID`),
+  ADD KEY `fk_Curriculum_Sexo1_idx` (`Sexo_SexoID`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`DepartamentoID`),
+  ADD KEY `fk_Departamento_Empresa1_idx` (`EmpresaID`);
+
+--
+-- Indices de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`EmpresaID`);
+
+--
+-- Indices de la tabla `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indices de la tabla `parametro`
+--
+ALTER TABLE `parametro`
+  ADD PRIMARY KEY (`ParametroID`),
+  ADD KEY `fk_Parametro_Recibo1_idx` (`ReciboID`);
+
+--
+-- Indices de la tabla `parametroempresa`
+--
+ALTER TABLE `parametroempresa`
+  ADD PRIMARY KEY (`ParametroID`),
+  ADD KEY `fk_Parametro_Empresa1_idx` (`EmpresaID`),
+  ADD KEY `fk_Parametro_Departamento1_idx` (`Departamento_DepartamentoID`);
+
+--
+-- Indices de la tabla `recibo`
+--
+ALTER TABLE `recibo`
+  ADD PRIMARY KEY (`ReciboID`),
+  ADD KEY `fk_Recibo_Usuario1_idx` (`UsuarioID`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`RolID`);
+
+--
+-- Indices de la tabla `sexo`
+--
+ALTER TABLE `sexo`
+  ADD PRIMARY KEY (`SexoID`);
+
+--
+-- Indices de la tabla `tipocodigo`
+--
+ALTER TABLE `tipocodigo`
+  ADD PRIMARY KEY (`TipoCodigoID`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`UsuarioID`),
+  ADD UNIQUE KEY `UsuarrioCedula_UNIQUE` (`UsuarioCedula`),
+  ADD UNIQUE KEY `UsuarioCorreo_UNIQUE` (`UsuarioCorreo`),
+  ADD KEY `fk_Usuario_Rol_idx` (`RolID`),
+  ADD KEY `fk_Usuario_Empresa1_idx` (`EmpresaID`),
+  ADD KEY `fk_Usuario_Cargo1_idx` (`CargoID`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `archivo`
+--
+ALTER TABLE `archivo`
+  MODIFY `ArchivoID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `CargoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `conceptosnomina`
+--
+ALTER TABLE `conceptosnomina`
+  MODIFY `ConceptosNominaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `curriculum`
+--
+ALTER TABLE `curriculum`
+  MODIFY `CurriculumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  MODIFY `DepartamentoID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `EmpresaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `parametro`
+--
+ALTER TABLE `parametro`
+  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1015;
+--
+-- AUTO_INCREMENT de la tabla `parametroempresa`
+--
+ALTER TABLE `parametroempresa`
+  MODIFY `ParametroID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `recibo`
+--
+ALTER TABLE `recibo`
+  MODIFY `ReciboID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4435;
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `RolID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tipocodigo`
+--
+ALTER TABLE `tipocodigo`
+  MODIFY `TipoCodigoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `UsuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `archivo`
 --
 ALTER TABLE `archivo`
   ADD CONSTRAINT `fk_Archivo_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `auth_assignment`
+-- Filtros para la tabla `auth_assignment`
 --
 ALTER TABLE `auth_assignment`
   ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `auth_item`
+-- Filtros para la tabla `auth_item`
 --
 ALTER TABLE `auth_item`
   ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `auth_item_child`
+-- Filtros para la tabla `auth_item_child`
 --
 ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `curriculum`
+-- Filtros para la tabla `conceptosnomina`
+--
+ALTER TABLE `conceptosnomina`
+  ADD CONSTRAINT `fk_ConceptosNomina_TipoCodigo` FOREIGN KEY (`TipoCodigoID`) REFERENCES `tipocodigo` (`TipoCodigoID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `curriculum`
 --
 ALTER TABLE `curriculum`
   ADD CONSTRAINT `fk_Curriculum_Sexo1` FOREIGN KEY (`Sexo_SexoID`) REFERENCES `sexo` (`SexoID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `departamento`
+-- Filtros para la tabla `departamento`
 --
 ALTER TABLE `departamento`
   ADD CONSTRAINT `fk_Departamento_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `parametro`
+-- Filtros para la tabla `parametro`
 --
 ALTER TABLE `parametro`
   ADD CONSTRAINT `fk_Parametro_Recibo` FOREIGN KEY (`ReciboID`) REFERENCES `recibo` (`ReciboID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `parametroempresa`
+-- Filtros para la tabla `parametroempresa`
 --
 ALTER TABLE `parametroempresa`
   ADD CONSTRAINT `fk_ParametroEmpresa_Empresa` FOREIGN KEY (`EmpresaID`) REFERENCES `empresa` (`EmpresaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Parametro_Departamento1` FOREIGN KEY (`Departamento_DepartamentoID`) REFERENCES `departamento` (`DepartamentoID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `recibo`
+-- Filtros para la tabla `recibo`
 --
 ALTER TABLE `recibo`
   ADD CONSTRAINT `fk_Recibo_Usuario` FOREIGN KEY (`UsuarioID`) REFERENCES `usuario` (`UsuarioID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `usuario`
+-- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_Usuario_Cargo` FOREIGN KEY (`CargoID`) REFERENCES `cargo` (`CargoID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
